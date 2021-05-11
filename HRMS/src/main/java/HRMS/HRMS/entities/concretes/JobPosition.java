@@ -28,7 +28,6 @@ public class JobPosition
 
 	public JobPosition(int positionId, String positionName)
 	{
-		super();
 		this.positionId = positionId;
 		this.positionName = positionName;
 	}
