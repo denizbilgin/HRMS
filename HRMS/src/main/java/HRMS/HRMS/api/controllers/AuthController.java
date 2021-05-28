@@ -10,6 +10,8 @@ import HRMS.HRMS.business.abstracts.AuthService;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.entities.concretes.Candidate;
 import HRMS.HRMS.entities.concretes.Employer;
+import HRMS.HRMS.entities.dtos.CandidateForRegisterDto;
+import HRMS.HRMS.entities.dtos.EmployerForRegisterDto;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -24,15 +26,15 @@ public class AuthController
 	}
 
 	@PostMapping("/registercandidate")
-	public Result registerCandidate(@RequestBody Candidate candidate)
+	public Result registerCandidate(@RequestBody CandidateForRegisterDto candidateForRegisterDto)
 	{
-		return this.authService.registerCandidate(candidate);
+		return this.authService.registerCandidate(candidateForRegisterDto);
 	}
 	
 	@PostMapping("/registeremployer")
-	public Result registerEmployer(@RequestBody Employer employer)
+	public Result registerEmployer(@RequestBody EmployerForRegisterDto employerForRegisterDto)
 	{
-		return this.authService.registerEmployer(employer);
+		return this.authService.registerEmployer(employerForRegisterDto);
 	}
 
 }

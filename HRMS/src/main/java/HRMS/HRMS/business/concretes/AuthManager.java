@@ -14,6 +14,8 @@ import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessResult;
 import HRMS.HRMS.entities.concretes.Candidate;
 import HRMS.HRMS.entities.concretes.Employer;
+import HRMS.HRMS.entities.dtos.CandidateForRegisterDto;
+import HRMS.HRMS.entities.dtos.EmployerForRegisterDto;
 
 @Service
 public class AuthManager implements AuthService
@@ -36,13 +38,17 @@ public class AuthManager implements AuthService
 	}
 
 	@Override
-	public Result registerCandidate(Candidate candidate)
+	public Result registerCandidate(CandidateForRegisterDto candidateForRegisterDto)
 	{
-		if (!this.checkIfEmailExists(candidate.getEmail()))
-		{
-			return new ErrorResult("Böyle bir email zaten var");
-		}
-		if (!this.checkIfValuesNullForCandidate(candidate))
+		Candidate candidate = new Candidate();
+		candidate.setEmail(candidateForRegisterDto.getEmail());
+		candidate.setPassword(candidateForRegisterDto.getPassword());
+		candidate.setFirstName(candidateForRegisterDto.getFirstName());
+		candidate.setLastName(candidateForRegisterDto.getLastName());
+		candidate.setBirthYear(candidateForRegisterDto.getBirthYear());
+		candidate.setNationalityId(candidateForRegisterDto.getNationalityId());
+		
+		if (!this.checkIfValuesNullForCandidate(candidateForRegisterDto))
 		{
 			return new ErrorResult("Bilgiler boş girilemez");
 		}
@@ -50,7 +56,15 @@ public class AuthManager implements AuthService
 		{
 			return new ErrorResult("Böyle bir kişi bulunamamaktadır");
 		}
-		if (!this.checkIfNationalityNumberExists(candidate.getNationalityId()))
+		if (!this.checkIfEmailExists(candidateForRegisterDto.getEmail()))
+		{
+			return new ErrorResult("Böyle bir email zaten var");
+		}
+		if (!candidateForRegisterDto.getPassword().equals(candidateForRegisterDto.getPasswordRepeat()))
+		{
+			return new ErrorResult("Lütfen şifre alanlarını aynı giriniz");
+		}
+		if (!this.checkIfNationalityNumberExists(candidateForRegisterDto.getNationalityId()))
 		{
 			return new ErrorResult("Bu kimlik numarasına sahip olan bir hesap zaten var");
 		}
@@ -61,9 +75,17 @@ public class AuthManager implements AuthService
 	}
 
 	@Override
-	public Result registerEmployer(Employer employer)
+	public Result registerEmployer(EmployerForRegisterDto employerForRegisterDto)
 	{
-		if (!this.checkIfValuesNullForEmployer(employer))
+		Employer employer = new Employer();
+		employer.setEmail(employerForRegisterDto.getEmail());
+		employer.setPassword(employerForRegisterDto.getPassword());
+		employer.setPhoneNumber(employerForRegisterDto.getPhoneNumber());
+		employer.setCompanyName(employerForRegisterDto.getCompanyName());
+		employer.setWebAdress(employerForRegisterDto.getWebAdress());
+		
+		
+		if (!this.checkIfValuesNullForEmployer(employerForRegisterDto))
 		{
 			return new ErrorResult("Bilgiler boş girilemez");
 		}
@@ -71,7 +93,11 @@ public class AuthManager implements AuthService
 		{
 			return new ErrorResult("Böyle bir email zaten var");
 		}
-		if (!this.checkIfEqualEmailAndDomain(employer))
+		if (!employerForRegisterDto.getPassword().equals(employerForRegisterDto.getPasswordRepeat()))
+		{
+			return new ErrorResult("Lütfen şifre alanlarını aynı giriniz");
+		}
+		if (!this.checkIfEqualEmailAndDomain(employerForRegisterDto))
 		{
 			return new ErrorResult("Lütfen web sitenizle aynı domaine sahip bir email adresi yazınız");
 		}
@@ -83,11 +109,11 @@ public class AuthManager implements AuthService
 
 	// ABOUT CANDİDATE
 
-	private boolean checkIfValuesNullForCandidate(Candidate candidate)
+	private boolean checkIfValuesNullForCandidate(CandidateForRegisterDto candidateForRegisterDto)
 	{
-		if (candidate.getFirstName() == null || candidate.getLastName() == null 
-				|| candidate.getNationalityId() == null || candidate.getEmail() == null
-				|| candidate.getPassword() == null)
+		if (candidateForRegisterDto.getFirstName() == null || candidateForRegisterDto.getLastName() == null 
+				|| candidateForRegisterDto.getNationalityId() == null || candidateForRegisterDto.getEmail() == null
+				|| candidateForRegisterDto.getPassword() == null)
 		{
 			return false;
 		} else
@@ -120,10 +146,10 @@ public class AuthManager implements AuthService
 
 	// ABOUT EMPLOYER
 
-	private boolean checkIfValuesNullForEmployer(Employer employer)
+	private boolean checkIfValuesNullForEmployer(EmployerForRegisterDto employerForRegisterDto)
 	{
-		if (employer.getCompanyName() == null || employer.getPhoneNumber() == null || employer.getWebAdress() == null
-				|| employer.getEmail() == null || employer.getPassword() == null)
+		if (employerForRegisterDto.getCompanyName() == null || employerForRegisterDto.getPhoneNumber() == null || employerForRegisterDto.getWebAdress() == null
+				|| employerForRegisterDto.getEmail() == null || employerForRegisterDto.getPassword() == null)
 		{
 			return false;
 		} else
@@ -132,10 +158,10 @@ public class AuthManager implements AuthService
 		}
 	}
 
-	private boolean checkIfEqualEmailAndDomain(Employer employer)
+	private boolean checkIfEqualEmailAndDomain(EmployerForRegisterDto employerForRegisterDto)
 	{
-		String[] emailArr = employer.getEmail().split("@",2);
-		String domain = employer.getWebAdress().substring(4, employer.getWebAdress().length());
+		String[] emailArr = employerForRegisterDto.getEmail().split("@",2);
+		String domain = employerForRegisterDto.getWebAdress().substring(4, employerForRegisterDto.getWebAdress().length());
 		
 		if (emailArr[1].equals(domain)) {
 			return true;
