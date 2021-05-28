@@ -8,4 +8,4 @@ public interface AuthService
 {
 	Result registerCandidate(Candidate candidate);
 	Result registerEmployer(Employer employer);
-}
+} 
