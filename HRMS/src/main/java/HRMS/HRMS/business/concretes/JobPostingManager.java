@@ -1,0 +1,80 @@
+package HRMS.HRMS.business.concretes;
+
+import java.sql.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import HRMS.HRMS.business.abstracts.JobPostingService;
+import HRMS.HRMS.core.utilities.results.DataResult;
+import HRMS.HRMS.core.utilities.results.Result;
+import HRMS.HRMS.core.utilities.results.SuccessDataResult;
+import HRMS.HRMS.core.utilities.results.SuccessResult;
+import HRMS.HRMS.dataAccess.abstracts.JobPostingDao;
+import HRMS.HRMS.entities.concretes.JobPosting;
+
+@Service
+public class JobPostingManager implements JobPostingService
+{
+	private JobPostingDao jobPostingDao;
+
+	@Autowired
+	public JobPostingManager(JobPostingDao jobPostingDao)
+	{
+		this.jobPostingDao = jobPostingDao;
+	}
+
+	@Override
+	public DataResult<List<JobPosting>> getAll()
+	{
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findAll(),"İş ilanları listelendi");
+	}
+
+	@Override
+	public Result add(JobPosting jobPosting)
+	{
+		
+		this.jobPostingDao.save(jobPosting);
+		return new SuccessResult("İş ilanı eklendi");
+	}
+
+	@Override
+	public DataResult<List<JobPosting>> getActivePostings()
+	{
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrue(),"Aktif iş ilanları listelendi");
+	}
+
+	@Override
+	public DataResult<List<JobPosting>> getIsActiveTrueAndDeadlineDateEquals(Date deadlineDate)
+	{
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrueAndDeadlineDateEquals(deadlineDate),"Başarılı");
+	}
+
+	@Override
+	public DataResult<List<JobPosting>> getIsActiveTrueAndEmployerId(int employerId)
+	{
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrueAndEmployerId(employerId),"Başarılı");
+	}
+
+	@Override
+	public DataResult<JobPosting> findById(int jobPostingId)
+	{
+		return new SuccessDataResult<JobPosting>(this.jobPostingDao.findById(jobPostingId));
+	}
+
+	@Override
+	public Result changeJobPostingIsActivity(int jobPostingId)
+	{
+		JobPosting jobPostingToUpdate = this.findById(jobPostingId).getData();
+		if (jobPostingToUpdate.isActive() == true)
+		{
+			jobPostingToUpdate.setActive(false);
+		}else {
+			jobPostingToUpdate.setActive(true);
+		}
+		
+		this.jobPostingDao.save(jobPostingToUpdate);
+		return new SuccessResult("İlanın aktifliği değiştirildi");
+	}
+}
