@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,15 +28,26 @@ import lombok.NoArgsConstructor;
 @Table(name="candidates")
 public class Candidate extends User
 {
+	@Size(min = 2,max = 25)
+	@NotBlank
+	@NotNull
 	@Column(name="first_name")
 	private String firstName;
 	
+	@NotBlank
+	@NotNull
+	@Size(min = 2,max = 25)
 	@Column(name="last_name")
 	private String lastName;
 	
+	@NotBlank
+	@NotNull
+	@Size(min = 11,max = 11)
 	@Column(name="nationality_id")
 	private String nationalityId;
 	
+	@NotBlank
+	@NotNull
 	@Column(name="birth_year")
 	private Date birthYear;
 	
@@ -43,6 +57,7 @@ public class Candidate extends User
 	@Column(name="img_url")
 	private String imgUrl;
 
+	@Size(min = 3,max = 300)
 	@Column(name="description")
 	private String description;
 	

@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -29,6 +32,9 @@ public class City
 	@Column(name = "id")
 	private int id;
 	
+	@NotBlank
+	@NotNull
+	@Size(min = 3,max = 25)
 	@Column(name = "city_name")
 	private String cityName;
 	

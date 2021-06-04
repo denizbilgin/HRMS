@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -34,6 +36,8 @@ public class CandidateLink
 	//@Column(name = "link_type_id")
 	//private int linkTypeId;
 	
+	@NotBlank
+	@NotNull
 	@Column(name = "link_path")
 	private String linkPath;
 	

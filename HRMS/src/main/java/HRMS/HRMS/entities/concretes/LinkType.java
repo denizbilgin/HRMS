@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,6 +31,9 @@ public class LinkType
 	@Column(name = "id")
 	private int id;
 	
+	@NotBlank
+	@NotNull
+	@Size(min = 2)
 	@Column(name = "link_type_name")
 	private String linkTypeName;
 	

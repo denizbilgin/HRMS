@@ -1,10 +1,13 @@
 package HRMS.HRMS.business.concretes;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import HRMS.HRMS.adapters.ImageService;
 import HRMS.HRMS.business.abstracts.CandidateLinkService;
 import HRMS.HRMS.business.abstracts.CandidateService;
 import HRMS.HRMS.business.abstracts.JobExperienceService;
@@ -28,11 +31,12 @@ public class CandidateManager implements CandidateService
 	private LanguageService languageService;
 	private SchoolService schoolService;
 	private SkillService skillService;
+	private ImageService imageService;
 
 	@Autowired
 	public CandidateManager(CandidateDao candidateDao,CandidateLinkService candidateLinkService,
 			JobExperienceService jobExperienceService,LanguageService languageService,
-			SchoolService schoolService,SkillService skillService)
+			SchoolService schoolService,SkillService skillService, ImageService imageService)
 	{
 		this.candidateDao = candidateDao;
 		this.candidateLinkService = candidateLinkService;
@@ -40,6 +44,7 @@ public class CandidateManager implements CandidateService
 		this.languageService = languageService;
 		this.schoolService = schoolService;
 		this.skillService = skillService;
+		this.imageService = imageService;
 	}
 
 	@Override
@@ -89,6 +94,18 @@ public class CandidateManager implements CandidateService
 		candidateToAddDescription.setDescription(description);
 		this.candidateDao.save(candidateToAddDescription);
 		return new SuccessResult("Açıklama eklendi");
+	}
+
+	@Override
+	public Result uploadImage(int candidateId, MultipartFile file)
+	{
+		Candidate candidateToAddPhoto = this.getById(candidateId).getData();
+		
+		Map<String, String> result = (Map<String, String>)this.imageService.savePhoto(file).getData();
+		String url = result.get("url");
+		candidateToAddPhoto.setImgUrl(url);
+		this.candidateDao.save(candidateToAddPhoto);
+		return new SuccessResult("Kullanıcının Resmi Eklendi");
 	}
 
 }

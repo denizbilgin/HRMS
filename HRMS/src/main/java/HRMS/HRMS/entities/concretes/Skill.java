@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -31,6 +34,9 @@ public class Skill
 	//@Column(name = "user_id")
 	//private int userId;
 	
+	@NotBlank
+	@NotNull
+	@Size(min = 3)
 	@Column(name = "skill_name")
 	private String skillName;
 	

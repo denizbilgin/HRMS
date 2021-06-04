@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,15 +39,22 @@ public class JobPosting
 	//@Column(name="city_id")
 	//private int cityId;
 	
+	@Min(value = 0)
 	@Column(name="min_salary")
 	private double minSalary;
 	
+	@Min(value = 0)
 	@Column(name="max_salary")
 	private double maxSalary;
 	
+	@NotBlank
+	@NotNull
+	@Min(value = 0)
 	@Column(name="number_of_open_position")
 	private int numberOfOpenPosition;
 	
+	@NotBlank
+	@NotNull
 	@Column(name="listing_date")
 	private Date listingDate;
 	
@@ -54,8 +64,13 @@ public class JobPosting
 	@Column(name="is_active")
 	private boolean isActive;
 	
+	@NotBlank
+	@NotNull
 	@Column(name="job_description")
 	private String jobDescription;
+	
+	
+	// JOINS
 	
 	//name => kendi tablosundaki kolon adı
 	@ManyToOne()
