@@ -16,4 +16,5 @@ public interface JobPostingService
 	DataResult<List<JobPosting>> getIsActiveTrueAndEmployerId(int employerId);
 	DataResult<JobPosting> findById(int jobPostingId);
 	Result changeJobPostingIsActivity(int jobPostingId);
+	DataResult<List<JobPosting>> getActiveByCityIdAndPositionId(int cityId,int positionId);
 }

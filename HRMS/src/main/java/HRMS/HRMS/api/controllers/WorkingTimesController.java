@@ -8,28 +8,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import HRMS.HRMS.business.abstracts.UserService;
+import HRMS.HRMS.business.abstracts.WorkingTimeService;
 import HRMS.HRMS.core.utilities.results.DataResult;
-import HRMS.HRMS.entities.concretes.User;
+import HRMS.HRMS.entities.concretes.WorkingTime;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/users")
-public class UsersController
+@RequestMapping("/api/workingtimes")
+public class WorkingTimesController
 {
-	private UserService userService;
+	private WorkingTimeService workingTimeService;
 
 	@Autowired
-	public UsersController(UserService userService)
+	public WorkingTimesController(WorkingTimeService workingTimeService)
 	{
-		this.userService = userService;
-	}
-
-	@GetMapping("/getall")
-	public DataResult<List<User>> getAll()
-	{
-		return this.userService.getAll();
+		this.workingTimeService = workingTimeService;
 	}
 	
-
+	@GetMapping("/getall")
+	public DataResult<List<WorkingTime>> getAll()
+	{
+		return this.workingTimeService.getAll();
+	}
 }

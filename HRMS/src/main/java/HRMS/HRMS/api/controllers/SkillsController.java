@@ -1,5 +1,6 @@
 package HRMS.HRMS.api.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import HRMS.HRMS.business.abstracts.SkillService;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.entities.concretes.Skill;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/skills")
 public class SkillsController

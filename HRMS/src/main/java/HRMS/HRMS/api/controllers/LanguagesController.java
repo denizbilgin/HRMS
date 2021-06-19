@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import HRMS.HRMS.business.abstracts.LanguageService;
 import HRMS.HRMS.core.utilities.results.ErrorDataResult;
 import HRMS.HRMS.entities.concretes.Language;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/languages")
 public class LanguagesController

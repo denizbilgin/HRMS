@@ -3,6 +3,7 @@ package HRMS.HRMS.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.entities.concretes.SystemUser;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/systemusers")
 public class SystemUsersController

@@ -34,7 +34,10 @@ public class JobPostingManager implements JobPostingService
 	@Override
 	public Result add(JobPosting jobPosting)
 	{
+		long millis=System.currentTimeMillis();  
+		java.sql.Date date=new java.sql.Date(millis);  
 		
+		jobPosting.setListingDate(date);
 		this.jobPostingDao.save(jobPosting);
 		return new SuccessResult("İş ilanı eklendi");
 	}
@@ -76,5 +79,11 @@ public class JobPostingManager implements JobPostingService
 		
 		this.jobPostingDao.save(jobPostingToUpdate);
 		return new SuccessResult("İlanın aktifliği değiştirildi");
+	}
+
+	@Override
+	public DataResult<List<JobPosting>> getActiveByCityIdAndPositionId(int cityId, int positionId)
+	{
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrueAndCity_IdAndJobPosition_PositionId(cityId, positionId));
 	}
 }

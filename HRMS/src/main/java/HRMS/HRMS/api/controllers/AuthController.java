@@ -1,6 +1,7 @@
 package HRMS.HRMS.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import HRMS.HRMS.entities.concretes.Employer;
 import HRMS.HRMS.entities.dtos.CandidateForRegisterDto;
 import HRMS.HRMS.entities.dtos.EmployerForRegisterDto;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController

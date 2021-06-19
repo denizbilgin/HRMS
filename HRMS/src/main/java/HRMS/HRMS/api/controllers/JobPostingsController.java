@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +17,9 @@ import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.entities.concretes.JobPosting;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/api/jobposting")
+@RequestMapping("/api/jobpostings")
 public class JobPostingsController
 {
 	private JobPostingService jobPostingService;
@@ -57,10 +59,18 @@ public class JobPostingsController
 	{
 		return this.jobPostingService.getIsActiveTrueAndEmployerId(employerId);
 	}
+	
+	@GetMapping("/getActiveByCityIdAndPositionId")
+	public DataResult<List<JobPosting>> getActiveByCityIdAndPositionId(@RequestParam int cityId,@RequestParam int positionId)
+	{
+		return this.jobPostingService.getActiveByCityIdAndPositionId(cityId, positionId);
+	}
 
 	@PostMapping("/changeJobPostingIsActivity")
 	public Result changeJobPostingIsActivity(@RequestParam int jobPostingId)
 	{
 		return this.jobPostingService.changeJobPostingIsActivity(jobPostingId);
 	}
+	
+	
 }
