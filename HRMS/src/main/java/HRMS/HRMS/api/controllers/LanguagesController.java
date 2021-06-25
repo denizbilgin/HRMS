@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import HRMS.HRMS.business.abstracts.LanguageService;
 import HRMS.HRMS.core.utilities.results.ErrorDataResult;
+import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.entities.concretes.Language;
 
 @CrossOrigin
@@ -39,6 +40,12 @@ public class LanguagesController
 	public ResponseEntity<?> add(@Valid @RequestBody Language language)
 	{
 		return ResponseEntity.ok(this.languageService.add(language)) ;
+	}
+	
+	@PostMapping("/update")
+	public Result update(@RequestBody Language language)
+	{
+		return this.languageService.update(language);
 	}
 	
 	 @ExceptionHandler(MethodArgumentNotValidException.class)

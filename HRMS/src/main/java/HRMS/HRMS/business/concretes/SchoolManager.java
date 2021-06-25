@@ -42,4 +42,16 @@ public class SchoolManager implements SchoolService
 	{
 		return new SuccessDataResult<List<School>>(this.schoolDao.findByCandidate_IdOrderByGraduateDateDesc(candidateId));
 	}
+
+	@Override
+	public Result update(School school)
+	{
+		School schoolToUpdate = this.schoolDao.findById(school.getId());
+		schoolToUpdate.setDepartment(school.getDepartment());
+		schoolToUpdate.setEntryDate(school.getEntryDate());
+		schoolToUpdate.setGraduateDate(school.getGraduateDate());
+		schoolToUpdate.setSchoolName(school.getSchoolName());
+		this.schoolDao.save(schoolToUpdate);
+		return new SuccessResult("Kullanıcı Okul Bilgileri Güncellendi");
+	}
 }

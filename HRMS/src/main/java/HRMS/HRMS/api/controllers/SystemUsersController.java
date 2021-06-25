@@ -34,6 +34,13 @@ public class SystemUsersController
 		return this.systemUserService.add(systemUser);
 	}
 	
+	@PostMapping("/update")
+	public Result update(@RequestBody SystemUser systemUser)
+	{
+		return this.systemUserService.update(systemUser);
+	}
+	
+	
 	@GetMapping("/getall")
 	public DataResult<List<SystemUser>> getAll()
 	{

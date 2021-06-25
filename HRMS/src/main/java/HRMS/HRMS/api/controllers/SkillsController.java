@@ -27,4 +27,10 @@ public class SkillsController
 	{
 		return this.skillService.add(skill);
 	}
+	
+	@PostMapping("/update")
+	public Result update(@RequestBody Skill skill)
+	{
+		return this.skillService.update(skill);
+	}
 }

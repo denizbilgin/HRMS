@@ -9,4 +9,5 @@ import HRMS.HRMS.entities.concretes.Skill;
 public interface SkillDao extends JpaRepository<Skill, Integer>
 {
 	List<Skill> findByCandidate_Id(int candidateId);
+	Skill findById(int skillId);
 }

@@ -45,6 +45,9 @@ public class Employer extends User
 	@Column(name="phone_number")
 	private String phoneNumber;
 	
+	@Column(name = "img_url")
+	private String imgUrl;
+	
 	@Column(name="is_activated", columnDefinition="boolean default false")
 	private boolean isActivated;
 	
@@ -53,4 +56,5 @@ public class Employer extends User
 	
 	@OneToMany(mappedBy = "employer")
 	private List<JobPosting> jobPostings;
+	
 }

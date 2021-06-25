@@ -1,5 +1,6 @@
 package HRMS.HRMS.business.concretes;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
 import HRMS.HRMS.core.utilities.results.SuccessResult;
+import HRMS.HRMS.dataAccess.abstracts.CandidateDao;
 import HRMS.HRMS.dataAccess.abstracts.CandidateLinkDao;
+import HRMS.HRMS.entities.concretes.Candidate;
 import HRMS.HRMS.entities.concretes.CandidateLink;
 
 @Service
@@ -19,7 +22,7 @@ public class CandidateLinkManager implements CandidateLinkService
 	private CandidateLinkDao candidateLinkDao;
 
 	@Autowired
-	public CandidateLinkManager(CandidateLinkDao candidateLinkDao)
+	public CandidateLinkManager(CandidateLinkDao candidateLinkDao,CandidateDao candidateDao)
 	{
 		this.candidateLinkDao = candidateLinkDao;
 	}
@@ -36,4 +39,14 @@ public class CandidateLinkManager implements CandidateLinkService
 		this.candidateLinkDao.save(candidateLink);
 		return new SuccessResult("Link başarıyla eklendi");
 	}
+
+	@Override
+	public Result update(CandidateLink candidateLink)
+	{
+		CandidateLink candidateLinkToUpdate = this.candidateLinkDao.findById(candidateLink.getId());
+		candidateLinkToUpdate.setLinkPath(candidateLink.getLinkPath());
+		this.candidateLinkDao.save(candidateLinkToUpdate);
+		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+	}
+
 }

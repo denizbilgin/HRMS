@@ -37,4 +37,15 @@ public class SystemUserManager implements SystemUserService
 		return new SuccessResult("Sistem kullanıcısı eklendi");
 	}
 
+	@Override
+	public Result update(SystemUser systemUser)
+	{
+		SystemUser systemUserToUpdate = this.systemUserDao.findById(systemUser.getId());
+		systemUserToUpdate.setEmail(systemUser.getEmail());
+		systemUserToUpdate.setFirstName(systemUser.getFirstName());
+		systemUserToUpdate.setLastName(systemUser.getLastName());
+		this.systemUserDao.save(systemUserToUpdate);
+		return new SuccessResult("Sistem Kullanıcısı Bilgileriniz Güncellendi");
+	}
+
 }

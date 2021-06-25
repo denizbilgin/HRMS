@@ -35,6 +35,12 @@ public class JobPostingsController
 	{
 		return this.jobPostingService.getAll();
 	}
+	
+	@GetMapping("/getallbypage")
+	public DataResult<List<JobPosting>> getAll(int pageNo,int pageSize)
+	{
+		return this.jobPostingService.getAll(pageNo,pageSize);
+	}
 
 	@PostMapping("/add")
 	public Result add(@RequestBody JobPosting jobPosting)
@@ -65,11 +71,35 @@ public class JobPostingsController
 	{
 		return this.jobPostingService.getActiveByCityIdAndPositionId(cityId, positionId);
 	}
+	
+	@GetMapping("/getbyid")
+	public DataResult<JobPosting> getById(@RequestParam int jobPostingId)
+	{
+		return this.jobPostingService.findById(jobPostingId);
+	}
 
 	@PostMapping("/changeJobPostingIsActivity")
 	public Result changeJobPostingIsActivity(@RequestParam int jobPostingId)
 	{
 		return this.jobPostingService.changeJobPostingIsActivity(jobPostingId);
+	}
+	
+	@GetMapping("/getbycityidandworkingtimeid")
+	public DataResult<List<JobPosting>> getByCityAndWorkingTime(int cityId,int workingTimeId)
+	{
+		return this.jobPostingService.getByCityIdAndWorkingTimeId(cityId, workingTimeId);
+	}
+	
+	@GetMapping("/getbycityid")
+	public DataResult<List<JobPosting>> getByCityId(int cityId)
+	{
+		return this.jobPostingService.getByCityId(cityId);
+	}
+	
+	@GetMapping("/getbyworkingtimeid")
+	public DataResult<List<JobPosting>> getByWorkingTimeId(int workingTimeId)
+	{
+		return this.jobPostingService.getByWorkingTimeId(workingTimeId);
 	}
 	
 	

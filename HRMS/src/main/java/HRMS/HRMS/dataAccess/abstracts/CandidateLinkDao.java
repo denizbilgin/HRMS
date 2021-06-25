@@ -9,4 +9,5 @@ import HRMS.HRMS.entities.concretes.CandidateLink;
 public interface CandidateLinkDao extends JpaRepository<CandidateLink, Integer>
 {
 	List<CandidateLink> findByCandidate_Id(int candidateId);
+	CandidateLink findById(int candidateLinkId);
 }

@@ -34,6 +34,12 @@ public class SchoolsController
 	{
 		return this.schoolService.add(school);
 	}
+	
+	@PostMapping("/update")
+	public Result update(@RequestBody School school)
+	{
+		return this.schoolService.update(school);
+	}
 
 	@GetMapping("/getCandidateSchoolsDesc")
 	public DataResult<List<School>> getCandidateSchoolsDesc(@RequestParam int candidateId)

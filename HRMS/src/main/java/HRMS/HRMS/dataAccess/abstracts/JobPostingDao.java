@@ -14,4 +14,7 @@ public interface JobPostingDao extends JpaRepository<JobPosting, Integer>
 	List<JobPosting> findByIsActiveTrueAndEmployerId(int employerId);
 	JobPosting findById(int jobPostingId);
 	List<JobPosting> findByIsActiveTrueAndCity_IdAndJobPosition_PositionId(int cityId,int positionId);
+	List<JobPosting> findByIsActiveTrueAndCity_IdAndWorkingTime_Id(int cityId,int workingTimeId);
+	List<JobPosting> findByIsActiveTrueAndCity_Id(int cityId);
+	List<JobPosting> findByIsActiveTrueAndWorkingTime_Id(int workingTimeId);
 }

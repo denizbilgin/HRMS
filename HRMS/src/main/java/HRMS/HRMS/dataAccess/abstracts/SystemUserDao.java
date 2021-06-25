@@ -6,5 +6,5 @@ import HRMS.HRMS.entities.concretes.SystemUser;
 
 public interface SystemUserDao extends JpaRepository<SystemUser,Integer>
 {
-
+	SystemUser findById(int systemUserId);
 }

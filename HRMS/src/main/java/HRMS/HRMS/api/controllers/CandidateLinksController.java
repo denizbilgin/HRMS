@@ -27,5 +27,11 @@ public class CandidateLinksController
 	{
 		return this.candidateLinkService.add(candidateLink);
 	}
+	
+	@PostMapping("/update")
+	public Result update(@RequestBody CandidateLink candidateLink)
+	{
+		return this.candidateLinkService.update(candidateLink);
+	}
 
 }

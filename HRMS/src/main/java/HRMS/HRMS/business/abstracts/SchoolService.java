@@ -13,4 +13,5 @@ public interface SchoolService
 	DataResult<List<School>> getByCandidateId(int candidateId);
 	Result add(School school);
 	DataResult<List<School>> getCandidateSchoolsDesc(int candidateId);
+	Result update(School school);
 }

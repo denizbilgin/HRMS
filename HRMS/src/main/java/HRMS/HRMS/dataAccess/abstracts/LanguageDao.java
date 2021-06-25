@@ -9,4 +9,5 @@ import HRMS.HRMS.entities.concretes.Language;
 public interface LanguageDao extends JpaRepository<Language, Integer>
 {
 	List<Language> findByCandidate_Id(int candidateId);
+	Language findById(int languageId);
 }
