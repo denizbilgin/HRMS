@@ -35,15 +35,10 @@ public class JobPostingFavouritesController
 		return this.jobPostingFavouriteService.getFavouritesByCandidateId(candidateId);
 	}
 	
-	@PostMapping("/addjobpostingfavourite")
-	public Result addFavourite(@RequestBody JobPostingFavourite jobPostingFavourite)
+	@PostMapping("/changejobpostingfavourite")
+	public Result changeJobPostingFavourite(@RequestParam int candidateId,@RequestParam int jobPostingId)
 	{
-		return this.jobPostingFavouriteService.addFavourite(jobPostingFavourite);
+		return this.jobPostingFavouriteService.changeJobPostingFavourite(candidateId, jobPostingId);
 	}
-	
-	@PostMapping("/removejobpostingfavourite")
-	public Result removeFavourite(@RequestParam int favouriteId)
-	{
-		return this.jobPostingFavouriteService.removeFavourite(favouriteId);
-	}
+
 }

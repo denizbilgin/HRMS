@@ -9,6 +9,5 @@ import HRMS.HRMS.entities.concretes.JobPostingFavourite;
 public interface JobPostingFavouriteService
 {
 	DataResult<List<JobPostingFavourite>> getFavouritesByCandidateId(int candidateId);
-	Result addFavourite(JobPostingFavourite jobPostingFavourite);
-	Result removeFavourite(int favouriteId);
+	Result changeJobPostingFavourite(int candidateId,int jobPostingId);
 }

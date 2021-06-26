@@ -5,23 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import HRMS.HRMS.business.abstracts.CandidateService;
 import HRMS.HRMS.business.abstracts.JobPostingFavouriteService;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
 import HRMS.HRMS.core.utilities.results.SuccessResult;
 import HRMS.HRMS.dataAccess.abstracts.JobPostingFavouriteDao;
+import HRMS.HRMS.entities.concretes.Candidate;
 import HRMS.HRMS.entities.concretes.JobPostingFavourite;
 
 @Service
 public class JobPostingFavouriteManager implements JobPostingFavouriteService
 {
 	private JobPostingFavouriteDao jobPostingFavouriteDao;
+	private CandidateService candidateService;
 
 	@Autowired
-	public JobPostingFavouriteManager(JobPostingFavouriteDao jobPostingFavouriteDao)
+	public JobPostingFavouriteManager(JobPostingFavouriteDao jobPostingFavouriteDao,CandidateService candidateService)
 	{
 		this.jobPostingFavouriteDao = jobPostingFavouriteDao;
+		this.candidateService = candidateService;
 	}
 
 	@Override
@@ -31,16 +35,21 @@ public class JobPostingFavouriteManager implements JobPostingFavouriteService
 	}
 
 	@Override
-	public Result addFavourite(JobPostingFavourite jobPostingFavourite)
+	public Result changeJobPostingFavourite(int candidateId,int jobPostingId)
 	{
-		this.jobPostingFavouriteDao.save(jobPostingFavourite);
-		return new SuccessResult("İlan Favoriye Eklendi");
-	}
-
-	@Override
-	public Result removeFavourite(int favouriteId)
-	{
-		this.jobPostingFavouriteDao.deleteById(favouriteId);
-		return new SuccessResult("İlan Favorilerden Çıkarıldı");
+		JobPostingFavourite result = this.jobPostingFavouriteDao.findByCandidate_IdAndJobPostingId(candidateId, jobPostingId);
+		if (result != null)
+		{
+			this.jobPostingFavouriteDao.deleteById(result.getId());
+		} else
+		{
+			JobPostingFavourite tempJobPostingFavourite = new JobPostingFavourite();
+			Candidate tempCandidate = new Candidate();
+			tempCandidate = this.candidateService.getById(candidateId).getData();
+			tempJobPostingFavourite.setCandidate(tempCandidate);
+			tempJobPostingFavourite.setJobPostingId(jobPostingId);
+			this.jobPostingFavouriteDao.save(tempJobPostingFavourite);
+		}
+		return new SuccessResult("Favori Güncellendi");
 	}
 }

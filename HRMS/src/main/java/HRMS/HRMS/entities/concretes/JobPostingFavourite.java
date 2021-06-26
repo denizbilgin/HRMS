@@ -35,7 +35,6 @@ public class JobPostingFavourite
 	
 	//JOINS
 	
-	@JsonIgnore
 	@ManyToOne()
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
