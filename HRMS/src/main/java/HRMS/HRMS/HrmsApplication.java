@@ -1,5 +1,6 @@
 package HRMS.HRMS;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -37,5 +38,11 @@ public class HrmsApplication
 				"api_key", "458658496897112",
 				"api_secret", "HFvI_aLKtWA5lc6XipJqoLrOqGI"));
 	}
+	
+	@Bean
+    public ModelMapper modelMapper() {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper;
+    }
 
 }

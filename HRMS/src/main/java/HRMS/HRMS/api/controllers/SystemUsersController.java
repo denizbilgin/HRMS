@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import HRMS.HRMS.business.abstracts.SystemUserService;
@@ -32,6 +33,12 @@ public class SystemUsersController
 	public Result add(@RequestBody SystemUser systemUser)
 	{
 		return this.systemUserService.add(systemUser);
+	}
+	
+	@GetMapping("/getBySystemUserId")
+	public DataResult<SystemUser> getBySystemUserId(@RequestParam int systemUserId)
+	{
+		return this.systemUserService.getById(systemUserId);
 	}
 	
 	@PostMapping("/update")

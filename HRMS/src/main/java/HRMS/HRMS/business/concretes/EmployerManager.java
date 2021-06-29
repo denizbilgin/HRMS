@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import HRMS.HRMS.adapters.ImageService;
 import HRMS.HRMS.business.abstracts.EmployerService;
 import HRMS.HRMS.core.utilities.results.DataResult;
@@ -21,12 +23,14 @@ public class EmployerManager implements EmployerService
 {
 	private EmployerDao employerDao;
 	private ImageService imageService;
+	private ObjectMapper objectMapper;
 
 	@Autowired
-	public EmployerManager(EmployerDao employerDao,ImageService imageService)
+	public EmployerManager(EmployerDao employerDao,ImageService imageService,ObjectMapper objectMapper)
 	{
 		this.employerDao = employerDao;
 		this.imageService = imageService;
+		this.objectMapper = objectMapper;
 	}
 
 	@Override
@@ -58,6 +62,26 @@ public class EmployerManager implements EmployerService
 	public DataResult<Employer> getById(int employerId)
 	{
 		return new SuccessDataResult<Employer>(this.employerDao.findById(employerId));
+	}
+
+	@Override
+	public Result waitingUpdate(Employer employer)
+	{
+		Employer employerToUpdate = this.getById(employer.getId()).getData();
+		Map<String,Object> update = this.objectMapper.convertValue(employer,Map.class);
+		employerToUpdate.setUpdateEmployer(update);
+		this.employerDao.save(employerToUpdate);
+		return new SuccessResult("Güncelleme İstediğiniz Alındı. Bilgileriniz Onaylanmadan Güncelleme Olmayacaktır");
+	}
+
+	@Override
+	public Result confirmUpdate(int employerId)
+	{
+		Employer employerToConfirmUpdate = this.getById(employerId).getData();
+		Employer tempEmployer = this.objectMapper.convertValue(employerToConfirmUpdate.getUpdateEmployer(), Employer.class);
+		tempEmployer.setUpdateEmployer(null);
+		this.employerDao.save(tempEmployer);
+		return new SuccessResult("Güncelleme Onaylandı");
 	}
 
 }

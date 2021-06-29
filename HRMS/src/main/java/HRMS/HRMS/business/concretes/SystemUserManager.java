@@ -48,4 +48,10 @@ public class SystemUserManager implements SystemUserService
 		return new SuccessResult("Sistem Kullanıcısı Bilgileriniz Güncellendi");
 	}
 
+	@Override
+	public DataResult<SystemUser> getById(int systemUserId)
+	{
+		return new SuccessDataResult<SystemUser>(this.systemUserDao.findById(systemUserId),"Sistem Kullanıcısı Bilgileri Getirildi");
+	}
+
 }

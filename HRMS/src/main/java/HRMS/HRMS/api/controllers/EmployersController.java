@@ -31,7 +31,7 @@ public class EmployersController
 	}
 
 	@PostMapping("/add")
-	public Result add(Employer employer)
+	public Result add(@RequestBody Employer employer)
 	{
 		return this.employerService.add(employer);
 	}
@@ -42,9 +42,27 @@ public class EmployersController
 		return this.employerService.getAll();
 	}
 	
+	@GetMapping("/getById")
+	public DataResult<Employer> getById(int employerId)
+	{
+		return this.employerService.getById(employerId);
+	}
+	
 	@PostMapping("/uploadImage")
-	public Result uploadImage(@RequestParam int employerId,@RequestBody MultipartFile file)
+	public Result uploadImage(int employerId,MultipartFile file)
 	{
 		return this.employerService.uploadImage(employerId,file);
+	}
+	
+	@PostMapping("/waitingUpdate")
+	public Result waitingUpdate(@RequestBody Employer employer)
+	{
+		return this.employerService.waitingUpdate(employer);
+	}
+	
+	@PostMapping("/confirmUpdate")
+	public Result confirmUpdate(@RequestParam int employerId)
+	{
+		return this.employerService.confirmUpdate(employerId);
 	}
 }

@@ -14,4 +14,6 @@ public interface EmployerService
 	Result add(Employer employer);
 	Result uploadImage(int employerId, MultipartFile file);
 	DataResult<Employer> getById(int employerId);
+	Result waitingUpdate(Employer employer);
+	Result confirmUpdate(int employerId);
 }

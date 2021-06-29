@@ -12,4 +12,5 @@ public interface SystemUserService
 	DataResult<List<SystemUser>> getAll();
 	Result add(SystemUser systemUser);
 	Result update(SystemUser systemUser);
+	DataResult<SystemUser> getById(int systemUserId);
 }

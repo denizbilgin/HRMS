@@ -43,6 +43,12 @@ public class CandidatesController
 		return this.candidateService.addOrUpdateDescription(candidateId, description);
 	}
 	
+	@PostMapping("/updateCandidate")
+	public Result updateCandidate(@RequestBody Candidate candidate)
+	{
+		return this.candidateService.updateCandidate(candidate);
+	}
+	
 	@PostMapping("/uploadImage")
 	public Result uploadImage(@RequestParam int candidateId,@RequestBody MultipartFile file)
 	{

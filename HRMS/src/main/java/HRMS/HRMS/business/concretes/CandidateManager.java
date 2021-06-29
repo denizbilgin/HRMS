@@ -109,7 +109,7 @@ public class CandidateManager implements CandidateService
 	}
 
 	@Override
-	public Result updateCv(Candidate candidate)
+	public Result updateCandidate(Candidate candidate)
 	{
 		Candidate candidateToUpdate = this.getById(candidate.getId()).getData();
 		candidateToUpdate.setBirthYear(candidate.getBirthYear());
@@ -117,6 +117,7 @@ public class CandidateManager implements CandidateService
 		candidateToUpdate.setEmail(candidate.getEmail());
 		candidateToUpdate.setFirstName(candidate.getFirstName());
 		candidateToUpdate.setLastName(candidate.getLastName());
+		candidateToUpdate.setNationalityId(candidate.getNationalityId());
 		this.candidateDao.save(candidateToUpdate);
 		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
 	}

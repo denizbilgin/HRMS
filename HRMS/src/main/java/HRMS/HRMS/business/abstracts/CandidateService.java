@@ -14,7 +14,7 @@ public interface CandidateService
 	DataResult<Candidate> getByNationalityId(String nationalityId);
 	DataResult<List<Candidate>> getAll();
 	Result add(Candidate candidate);  
-	Result updateCv(Candidate candidate);  
+	Result updateCandidate(Candidate candidate);  
 	DataResult<CurriculumVitaeDto> getCVByCandidateId(int candidateId);
 	DataResult<Candidate> getById(int candidateId);
 	Result addOrUpdateDescription(int candidateId,String description);
