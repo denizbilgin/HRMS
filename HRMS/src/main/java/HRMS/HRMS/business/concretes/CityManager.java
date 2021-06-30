@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.CityService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
 import HRMS.HRMS.dataAccess.abstracts.CityDao;
@@ -25,6 +26,6 @@ public class CityManager implements CityService
 	@Override
 	public DataResult<List<City>> getAll()
 	{
-		return new SuccessDataResult<List<City>>(this.cityDao.findAll(),"Şehirler Listelendi");
+		return new SuccessDataResult<List<City>>(this.cityDao.findAll(),Messages.citiesListed);
 	}
 }

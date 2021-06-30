@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.JobExperienceService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
@@ -34,7 +35,7 @@ public class JobExperienceManager implements JobExperienceService
 	public Result add(JobExperience jobExperience)
 	{
 		this.jobExperienceDao.save(jobExperience);
-		return new SuccessResult("İş tecrübesi eklendi");
+		return new SuccessResult(Messages.jobExperienceAdded);
 	}
 
 	@Override
@@ -52,6 +53,13 @@ public class JobExperienceManager implements JobExperienceService
 		jobExperienceToUpdate.setStartDate(jobExperience.getStartDate());
 		jobExperienceToUpdate.setWorkplaceName(jobExperience.getWorkplaceName());
 		this.jobExperienceDao.save(jobExperienceToUpdate);
-		return new SuccessResult("Kullanıcı bilgileri güncellendi");
+		return new SuccessResult(Messages.candidatesJobExperienceUpdated);
+	}
+
+	@Override
+	public Result delete(int candidateId)
+	{
+		this.jobExperienceDao.deleteById(candidateId);
+		return new SuccessResult(Messages.jobExperienceDeleted);
 	}
 }

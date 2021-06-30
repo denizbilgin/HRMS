@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.SkillService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
@@ -34,7 +35,7 @@ public class SkillManager implements SkillService
 	public Result add(Skill skill)
 	{
 		this.skillDao.save(skill);
-		return new SuccessResult("Yetenek eklendi");
+		return new SuccessResult(Messages.skillAdded);
 	}
 
 	@Override
@@ -43,6 +44,13 @@ public class SkillManager implements SkillService
 		Skill skillToUpdate = this.skillDao.findById(skill.getId());
 		skillToUpdate.setSkillName(skill.getSkillName());
 		this.skillDao.save(skillToUpdate);
-		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+		return new SuccessResult(Messages.candidatesSkillUpdated);
+	}
+
+	@Override
+	public Result delete(int skillId)
+	{
+		this.skillDao.deleteById(skillId);
+		return new SuccessResult(Messages.skillDeleted);
 	}
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.SchoolService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
@@ -34,7 +35,7 @@ public class SchoolManager implements SchoolService
 	public Result add(School school)
 	{
 		this.schoolDao.save(school);
-		return new SuccessResult("Okul eklendi");
+		return new SuccessResult(Messages.schoolAdded);
 	}
 
 	@Override
@@ -52,6 +53,13 @@ public class SchoolManager implements SchoolService
 		schoolToUpdate.setGraduateDate(school.getGraduateDate());
 		schoolToUpdate.setSchoolName(school.getSchoolName());
 		this.schoolDao.save(schoolToUpdate);
-		return new SuccessResult("Kullanıcı Okul Bilgileri Güncellendi");
+		return new SuccessResult(Messages.candidatesSchoolUpdated);
+	}
+
+	@Override
+	public Result delete(int schoolId)
+	{
+		this.schoolDao.deleteById(schoolId);
+		return new SuccessResult(Messages.schoolDeleted);
 	}
 }

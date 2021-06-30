@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,15 +38,21 @@ public class LanguagesController
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody Language language)
+	public Result add(@RequestBody Language language)
 	{
-		return ResponseEntity.ok(this.languageService.add(language)) ;
+		return this.languageService.add(language) ;
 	}
 	
 	@PostMapping("/update")
 	public Result update(@RequestBody Language language)
 	{
 		return this.languageService.update(language);
+	}
+	
+	@PostMapping("/delete")
+	public Result delete(@RequestParam int languageId)
+	{
+		return this.languageService.delete(languageId);
 	}
 	
 	 @ExceptionHandler(MethodArgumentNotValidException.class)

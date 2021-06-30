@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.JobPositionService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.ErrorResult;
 import HRMS.HRMS.core.utilities.results.Result;
@@ -28,7 +29,7 @@ public class JobPositionManager implements JobPositionService
 	@Override
 	public DataResult<List<JobPosition>> getAll()
 	{
-		return new SuccessDataResult<List<JobPosition>>(this.jobPositionDao.findAll(), "İş pozisyonları listelendi");
+		return new SuccessDataResult<List<JobPosition>>(this.jobPositionDao.findAll());
 	}
 
 	@Override
@@ -36,11 +37,11 @@ public class JobPositionManager implements JobPositionService
 	{
 		if (getByPositionName(jobPosition.getPositionName()).getData() != null)
 		{
-			return new ErrorResult("Böyle bir iş pozisyonu zaten var");
+			return new ErrorResult(Messages.jobPositionIsAlreadyExists);
 		} else
 		{
 			this.jobPositionDao.save(jobPosition);
-			return new SuccessResult("İş pozisyonu eklendi");
+			return new SuccessResult(Messages.jobPositionAdded);
 		}
 	}
 	

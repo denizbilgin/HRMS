@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.JobPostingService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
@@ -30,7 +31,7 @@ public class JobPostingManager implements JobPostingService
 	@Override
 	public DataResult<List<JobPosting>> getAll()
 	{
-		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findAll(),"İş ilanları listelendi");
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findAll());
 	}
 
 	@Override
@@ -41,25 +42,25 @@ public class JobPostingManager implements JobPostingService
 		
 		jobPosting.setListingDate(date);
 		this.jobPostingDao.save(jobPosting);
-		return new SuccessResult("İş ilanı eklendi");
+		return new SuccessResult(Messages.jobPostingAdded);
 	}
 
 	@Override
 	public DataResult<List<JobPosting>> getActivePostings()
 	{
-		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrue(),"Aktif iş ilanları listelendi");
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrue(),Messages.activeJobPostingsListed);
 	}
 
 	@Override
 	public DataResult<List<JobPosting>> getIsActiveTrueAndDeadlineDateEquals(Date deadlineDate)
 	{
-		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrueAndDeadlineDateEquals(deadlineDate),"Başarılı");
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrueAndDeadlineDateEquals(deadlineDate),Messages.processSuccessful);
 	}
 
 	@Override
 	public DataResult<List<JobPosting>> getIsActiveTrueAndEmployerId(int employerId)
 	{
-		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrueAndEmployerId(employerId),"Başarılı");
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByIsActiveTrueAndEmployerId(employerId),Messages.processSuccessful);
 	}
 
 	@Override
@@ -80,7 +81,7 @@ public class JobPostingManager implements JobPostingService
 		}
 		
 		this.jobPostingDao.save(jobPostingToUpdate);
-		return new SuccessResult("İlanın aktifliği değiştirildi");
+		return new SuccessResult(Messages.jobPostingsActivitiyChanged);
 	}
 
 	@Override

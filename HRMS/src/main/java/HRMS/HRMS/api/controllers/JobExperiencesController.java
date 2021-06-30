@@ -38,6 +38,12 @@ public class JobExperiencesController
 		return this.jobExperienceService.update(jobExperience);
 	}
 	
+	@PostMapping("/delete")
+	public Result delete(@RequestParam int candidateId)
+	{
+		return this.jobExperienceService.delete(candidateId);
+	}
+	
 	@GetMapping("/getCandidateJobExperiencesDesc")
 	public Result getCandidateJobExperiencesDesc(@RequestParam int candidateId)
 	{

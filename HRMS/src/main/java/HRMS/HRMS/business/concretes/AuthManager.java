@@ -9,6 +9,7 @@ import HRMS.HRMS.business.abstracts.CandidateService;
 import HRMS.HRMS.business.abstracts.EmployerService;
 import HRMS.HRMS.business.abstracts.UserService;
 import HRMS.HRMS.business.abstracts.VertificationService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.ErrorResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessResult;
@@ -50,28 +51,28 @@ public class AuthManager implements AuthService
 		
 		if (!this.checkIfValuesNullForCandidate(candidateForRegisterDto))
 		{
-			return new ErrorResult("Bilgiler boş girilemez");
+			return new ErrorResult(Messages.informationsCannotBeBlank);
 		}
 		if (!this.checkIfRealPerson(candidate))
 		{
-			return new ErrorResult("Böyle bir kişi bulunamamaktadır");
+			return new ErrorResult(Messages.noSuchPersonExists);
 		}
 		if (!this.checkIfEmailExists(candidateForRegisterDto.getEmail()))
 		{
-			return new ErrorResult("Böyle bir email zaten var");
+			return new ErrorResult(Messages.emailIsAlreadyExists);
 		}
 		if (!candidateForRegisterDto.getPassword().equals(candidateForRegisterDto.getPasswordRepeat()))
 		{
-			return new ErrorResult("Lütfen şifre alanlarını aynı giriniz");
+			return new ErrorResult(Messages.enterPasswordsEqual);
 		}
 		if (!this.checkIfNationalityNumberExists(candidateForRegisterDto.getNationalityId()))
 		{
-			return new ErrorResult("Bu kimlik numarasına sahip olan bir hesap zaten var");
+			return new ErrorResult(Messages.nationalityIdIsAlreadyExists);
 		}
 
 		this.vertificationService.emailVertification(candidate.getEmail());
 		this.candidateService.add(candidate);
-		return new SuccessResult("İş arayan kaydı başarılı");
+		return new SuccessResult(Messages.candidatesRegistrySuccessful);
 	}
 
 	@Override
@@ -87,24 +88,24 @@ public class AuthManager implements AuthService
 		
 		if (!this.checkIfValuesNullForEmployer(employerForRegisterDto))
 		{
-			return new ErrorResult("Bilgiler boş girilemez");
+			return new ErrorResult(Messages.informationsCannotBeBlank);
 		}
 		if (!this.checkIfEmailExists(employer.getEmail()))
 		{
-			return new ErrorResult("Böyle bir email zaten var");
+			return new ErrorResult(Messages.emailIsAlreadyExists);
 		}
 		if (!employerForRegisterDto.getPassword().equals(employerForRegisterDto.getPasswordRepeat()))
 		{
-			return new ErrorResult("Lütfen şifre alanlarını aynı giriniz");
+			return new ErrorResult(Messages.enterPasswordsEqual);
 		}
 		if (!this.checkIfEqualEmailAndDomain(employerForRegisterDto))
 		{
-			return new ErrorResult("Lütfen web sitenizle aynı domaine sahip bir email adresi yazınız");
+			return new ErrorResult(Messages.enterEmailAndDomainEqual);
 		}
 		
 		this.vertificationService.emailVertification(employer.getEmail());
 		this.employerService.add(employer);
-		return new SuccessResult("İşveren kaydı başarılı");
+		return new SuccessResult(Messages.employersRegistrySuccessful);
 	}
 
 	// ABOUT CANDİDATE

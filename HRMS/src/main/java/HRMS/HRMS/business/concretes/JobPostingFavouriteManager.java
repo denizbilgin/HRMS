@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.CandidateService;
 import HRMS.HRMS.business.abstracts.JobPostingFavouriteService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
@@ -50,6 +51,6 @@ public class JobPostingFavouriteManager implements JobPostingFavouriteService
 			tempJobPostingFavourite.setJobPostingId(jobPostingId);
 			this.jobPostingFavouriteDao.save(tempJobPostingFavourite);
 		}
-		return new SuccessResult("Favori Güncellendi");
+		return new SuccessResult(Messages.jobPostingAddedToFavourite);
 	}
 }

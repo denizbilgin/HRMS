@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.WorkingTimeService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
 import HRMS.HRMS.dataAccess.abstracts.WorkingTimeDao;
@@ -25,6 +26,6 @@ public class WorkingTimeManager implements WorkingTimeService
 	@Override
 	public DataResult<List<WorkingTime>> getAll()
 	{
-		return new SuccessDataResult<List<WorkingTime>>(this.workingTimeDao.findAll(),"İş zamanları listelendi");
+		return new SuccessDataResult<List<WorkingTime>>(this.workingTimeDao.findAll(),Messages.workingTimesListed);
 	}
 }

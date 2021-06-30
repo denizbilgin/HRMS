@@ -40,6 +40,12 @@ public class SchoolsController
 	{
 		return this.schoolService.update(school);
 	}
+	
+	@PostMapping("/delete")
+	public Result delete(@RequestParam int schoolId)
+	{
+		return this.schoolService.delete(schoolId);
+	}
 
 	@GetMapping("/getCandidateSchoolsDesc")
 	public DataResult<List<School>> getCandidateSchoolsDesc(@RequestParam int candidateId)

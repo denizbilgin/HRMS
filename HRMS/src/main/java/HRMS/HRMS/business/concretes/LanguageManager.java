@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.LanguageService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
@@ -34,7 +35,7 @@ public class LanguageManager implements LanguageService
 	public Result add(Language language)
 	{
 		this.languageDao.save(language);
-		return new SuccessResult("Yeni bir dil eklendi");
+		return new SuccessResult(Messages.languageAdded);
 	}
 
 	@Override
@@ -44,6 +45,13 @@ public class LanguageManager implements LanguageService
 		languageToUpdate.setLanguageLevel(language.getLanguageLevel());
 		languageToUpdate.setLanguageName(language.getLanguageName());
 		this.languageDao.save(languageToUpdate);
-		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+		return new SuccessResult(Messages.candidatesLanguageUpdated);
+	}
+
+	@Override
+	public Result delete(int languageId)
+	{
+		this.languageDao.deleteById(languageId);
+		return new SuccessResult(Messages.languageDeleted);
 	}
 }

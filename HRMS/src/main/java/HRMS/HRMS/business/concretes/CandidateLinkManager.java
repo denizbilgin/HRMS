@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.CandidateLinkService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
@@ -30,14 +31,14 @@ public class CandidateLinkManager implements CandidateLinkService
 	@Override
 	public DataResult<List<CandidateLink>> getByCandidateId(int candidateId)
 	{
-		return new SuccessDataResult<List<CandidateLink>>(this.candidateLinkDao.findByCandidate_Id(candidateId),"Kişinin CV'si getirildi");
+		return new SuccessDataResult<List<CandidateLink>>(this.candidateLinkDao.findByCandidate_Id(candidateId));
 	}
 
 	@Override
 	public Result add(CandidateLink candidateLink)
 	{
 		this.candidateLinkDao.save(candidateLink);
-		return new SuccessResult("Link başarıyla eklendi");
+		return new SuccessResult(Messages.linkAdded);
 	}
 
 	@Override
@@ -46,7 +47,14 @@ public class CandidateLinkManager implements CandidateLinkService
 		CandidateLink candidateLinkToUpdate = this.candidateLinkDao.findById(candidateLink.getId());
 		candidateLinkToUpdate.setLinkPath(candidateLink.getLinkPath());
 		this.candidateLinkDao.save(candidateLinkToUpdate);
-		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+		return new SuccessResult(Messages.linkUpdated);
+	}
+
+	@Override
+	public Result delete(int linkId)
+	{
+		this.candidateLinkDao.deleteById(linkId);
+		return new SuccessResult(Messages.linkDeleted);
 	}
 
 }

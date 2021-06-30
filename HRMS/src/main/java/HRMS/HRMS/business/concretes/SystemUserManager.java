@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import HRMS.HRMS.business.abstracts.SystemUserService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
@@ -27,14 +28,14 @@ public class SystemUserManager implements SystemUserService
 	@Override
 	public DataResult<List<SystemUser>> getAll()
 	{
-		return new SuccessDataResult<List<SystemUser>>(this.systemUserDao.findAll(),"Sistem kullanıcıları listelendi");
+		return new SuccessDataResult<List<SystemUser>>(this.systemUserDao.findAll(),Messages.systemUsersListed);
 	}
 
 	@Override
 	public Result add(SystemUser systemUser)
 	{
 		this.systemUserDao.save(systemUser);
-		return new SuccessResult("Sistem kullanıcısı eklendi");
+		return new SuccessResult(Messages.systemUserAdded);
 	}
 
 	@Override
@@ -45,13 +46,13 @@ public class SystemUserManager implements SystemUserService
 		systemUserToUpdate.setFirstName(systemUser.getFirstName());
 		systemUserToUpdate.setLastName(systemUser.getLastName());
 		this.systemUserDao.save(systemUserToUpdate);
-		return new SuccessResult("Sistem Kullanıcısı Bilgileriniz Güncellendi");
+		return new SuccessResult(Messages.systemUserUpdated);
 	}
 
 	@Override
 	public DataResult<SystemUser> getById(int systemUserId)
 	{
-		return new SuccessDataResult<SystemUser>(this.systemUserDao.findById(systemUserId),"Sistem Kullanıcısı Bilgileri Getirildi");
+		return new SuccessDataResult<SystemUser>(this.systemUserDao.findById(systemUserId));
 	}
 
 }

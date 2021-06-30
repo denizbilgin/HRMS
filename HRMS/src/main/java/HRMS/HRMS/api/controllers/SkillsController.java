@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import HRMS.HRMS.business.abstracts.SkillService;
@@ -32,5 +33,11 @@ public class SkillsController
 	public Result update(@RequestBody Skill skill)
 	{
 		return this.skillService.update(skill);
+	}
+	
+	@PostMapping("/delete")
+	public Result delete(@RequestParam int skillId)
+	{
+		return this.skillService.delete(skillId);
 	}
 }

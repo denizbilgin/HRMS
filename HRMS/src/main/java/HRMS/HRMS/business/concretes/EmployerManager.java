@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import HRMS.HRMS.adapters.ImageService;
 import HRMS.HRMS.business.abstracts.EmployerService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
@@ -36,14 +37,14 @@ public class EmployerManager implements EmployerService
 	@Override
 	public DataResult<List<Employer>> getAll()
 	{
-		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(),"İşverenler listelendi");
+		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll());
 	}
 
 	@Override
 	public Result add(Employer employer)
 	{
 		this.employerDao.save(employer);
-		return new SuccessResult("İşveren eklendi");
+		return new SuccessResult(Messages.employerAdded);
 	}
 
 	@Override
@@ -55,7 +56,7 @@ public class EmployerManager implements EmployerService
 		String url = result.get("url");
 		employerToUploadPhoto.setImgUrl(url);
 		this.employerDao.save(employerToUploadPhoto);
-		return new SuccessResult("İşveren resmi güncellendi.");
+		return new SuccessResult(Messages.imageUploaded);
 	}
 
 	@Override
@@ -71,7 +72,7 @@ public class EmployerManager implements EmployerService
 		Map<String,Object> update = this.objectMapper.convertValue(employer,Map.class);
 		employerToUpdate.setUpdateEmployer(update);
 		this.employerDao.save(employerToUpdate);
-		return new SuccessResult("Güncelleme İstediğiniz Alındı. Bilgileriniz Onaylanmadan Güncelleme Olmayacaktır");
+		return new SuccessResult(Messages.employerUpdateIsWaiting);
 	}
 
 	@Override
@@ -81,7 +82,7 @@ public class EmployerManager implements EmployerService
 		Employer tempEmployer = this.objectMapper.convertValue(employerToConfirmUpdate.getUpdateEmployer(), Employer.class);
 		tempEmployer.setUpdateEmployer(null);
 		this.employerDao.save(tempEmployer);
-		return new SuccessResult("Güncelleme Onaylandı");
+		return new SuccessResult(Messages.employerUpdateIsConfirmed);
 	}
 
 }

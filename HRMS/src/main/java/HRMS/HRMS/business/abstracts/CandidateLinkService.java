@@ -11,4 +11,5 @@ public interface CandidateLinkService
 	DataResult<List<CandidateLink>> getByCandidateId(int candidateId);
 	Result add(CandidateLink candidateLink);
 	Result update(CandidateLink candidateLink);
+	Result delete(int linkId);
 }

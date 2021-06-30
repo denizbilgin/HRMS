@@ -14,6 +14,7 @@ import HRMS.HRMS.business.abstracts.JobExperienceService;
 import HRMS.HRMS.business.abstracts.LanguageService;
 import HRMS.HRMS.business.abstracts.SchoolService;
 import HRMS.HRMS.business.abstracts.SkillService;
+import HRMS.HRMS.business.constants.Messages;
 import HRMS.HRMS.core.utilities.results.DataResult;
 import HRMS.HRMS.core.utilities.results.Result;
 import HRMS.HRMS.core.utilities.results.SuccessDataResult;
@@ -56,14 +57,14 @@ public class CandidateManager implements CandidateService
 	@Override
 	public DataResult<List<Candidate>> getAll()
 	{
-		return new SuccessDataResult<List<Candidate>>(this.candidateDao.findAll(),"İş Arayanlar Listelendi");
+		return new SuccessDataResult<List<Candidate>>(this.candidateDao.findAll());
 	}
 
 	@Override
 	public Result add(Candidate candidate)
 	{
 		this.candidateDao.save(candidate);
-		return new SuccessResult("İş Arayan Eklendi");
+		return new SuccessResult(Messages.candidateAdded);
 	}
 
 	@Override
@@ -93,7 +94,7 @@ public class CandidateManager implements CandidateService
 		Candidate candidateToAddDescription = this.getById(candidateId).getData();
 		candidateToAddDescription.setDescription(description);
 		this.candidateDao.save(candidateToAddDescription);
-		return new SuccessResult("Açıklama eklendi");
+		return new SuccessResult(Messages.descriotionUpdated);
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class CandidateManager implements CandidateService
 		String url = result.get("url");
 		candidateToAddPhoto.setImgUrl(url);
 		this.candidateDao.save(candidateToAddPhoto);
-		return new SuccessResult("Kullanıcının Resmi Eklendi");
+		return new SuccessResult(Messages.imageUploaded);
 	}
 
 	@Override
@@ -119,7 +120,7 @@ public class CandidateManager implements CandidateService
 		candidateToUpdate.setLastName(candidate.getLastName());
 		candidateToUpdate.setNationalityId(candidate.getNationalityId());
 		this.candidateDao.save(candidateToUpdate);
-		return new SuccessResult("Kullanıcı Bilgileri Güncellendi");
+		return new SuccessResult(Messages.candidateUpdated);
 	}
 
 }
